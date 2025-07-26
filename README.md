@@ -1,6 +1,6 @@
-# PySpark questions from WESCO international
+# PySpark questions 
 
-PySpark Questions I Recently Faced (Real Interview/Project)
+PySpark Questions I Recently Faced (Real Interview/Project) from WESCO international
 Sharing beginner-friendly yet powerful PySpark scenarios I encountered recently — useful for interviews and hands-on data cleaning 
 
 Sharing 4 essential PySpark tricks for beginners — perfect for interviews and real-time data cleaning!
