@@ -5,9 +5,7 @@ While working with a large dataset, I spotted performance bottlenecks caused by 
 
 ❌ Inefficient Approach:
 
-python
-Copy
-Edit
+
 @udf(StringType())
 def format_user_id(id):
     return f"user-{id}"
@@ -22,11 +20,9 @@ active_users = df.filter("activity_score > 20 AND session_time_sec > 500")
 wide_df = active_users.select("user_id", "activity_score", "session_time_sec", "region")
 wide_df = wide_df.distinct()
 data = wide_df.collect()  # costly!
-✅ Optimized Approach:
 
-python
-Copy
-Edit
+
+✅ Optimized Approach:
 df = spark.range(0, 50000000).select(
     concat_ws("-", lit("user"), col("id")).alias("user_id"),
     (rand() * 100).cast("int").alias("activity_score"),
@@ -40,6 +36,7 @@ active_users = df.filter(
 )
 
 active_users.select("user_id", "activity_score", "session_time_sec", "region").show(5, truncate=False)
+
 🔍 Key Improvements:
 ✅ Replaced UDF with native Spark functions → Catalyst Optimizer can work its magic
 ✅ Combined multiple withColumn() into one select() → fewer stages
@@ -47,14 +44,8 @@ active_users.select("user_id", "activity_score", "session_time_sec", "region").s
 ❌ Removed unnecessary repartition(2) & distinct()
 
 📌 Remember:
-
 UDF = black box for Catalyst → harder to optimize
-
 .collect() = potential driver memory overload
 
 💡 Even small code changes can deliver huge performance gains at scale.
-
-👉 How would you optimize PySpark for 50M+ rows?
-
-#PySpark #ApacheSpark #DataEngineering #SparkOptimization #BigData #UDF #ETL #PerformanceMatters #LinkedInTech #ProductBasedInterview
 
